@@ -48,6 +48,7 @@
                 }
             };
 
+            // 中序遍历
             var inOrderTraverseNode = function (node, callback) {
                 if (node !== null) {
                     inOrderTraverseNode(node.left, callback);
@@ -57,9 +58,76 @@
 
                 }
             }
-
             this.inOrderTraverse = function (callback) {
                 inOrderTraverseNode(root, callback);
+            }
+
+            // 前序遍历
+            var preOrderTraverseNode = function (node, callback) {
+                if (node !== null) {
+                    callback(node.key);
+                    preOrderTraverseNode(node.left, callback);
+                    preOrderTraverseNode(node.right, callback);
+                }
+            }
+            this.preOrderTraverse = function (callback) {
+                preOrderTraverseNode(root, callback);
+            }
+
+            // 后序遍历
+            var postOrderTraverseNode = function (node, callback) {
+                if (node !== null) {
+                    postOrderTraverseNode(node.left, callback);
+                    postOrderTraverseNode(node.right, callback);
+                    callback(node.key);
+                }
+            }
+            this.postOrderTraverse = function (callback) {
+                postOrderTraverseNode(root, callback);
+            }
+
+            // 查找最大数和最小数
+            var minNode = function (node) {
+                if (node) {
+                    while (node && node.left !== null) {
+                        node = node.left;
+                    }
+                    return node.key;
+                }
+                return null;
+            }
+            this.min = function () {
+                return minNode(root);
+            }
+            // 查找最大数和最小数
+            var maxNode = function (node) {
+                if (node) {
+                    while (node && node.right !== null) {
+                        node = node.right;
+                    }
+                    return node.key;
+                }
+                return null;
+            }
+            this.max = function () {
+                return maxNode(root);
+            }
+
+            // 查找数值
+            var searchNode = function (node, key) {
+                if (node === null) {
+                    return false;
+                }
+                if (node.key < key) {
+                    return searchNode(node.right, key)
+                } else if (node.key > key) {
+                    return searchNode(node.left, key)
+                } else {
+                    return true;
+                }
+            }
+            this.search = function (key) {
+                return searchNode(root, key);
             }
         }
 
@@ -72,7 +140,10 @@
         var callback = function (key) {
             console.log(key);
         }
-        binaryTree.inOrderTraverse(callback);
+        // binaryTree.inOrderTraverse(callback);
+        console.log(binaryTree.min());
+        console.log(binaryTree.max());
+        console.log(binaryTree.search(7));
     </script>
 </body>
 
